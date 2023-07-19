@@ -1,5 +1,6 @@
 import BrowserCard from './components/BrowserCard'
 import Nav_Bar from './components/Nav_Bar'
+import QuestionsCard from './components/QuestionsCard'
 import Title_Slide from './components/Title_Slide'
 import Chrome from '/src/assets/images/logo-chrome.svg'
 import Firefox from '/src/assets/images/logo-firefox.svg'
@@ -114,21 +115,25 @@ function App() {
             </div>
           </article>
         </section>
-        <section className="my-4">
-          <article>
+        <section className="px-4 my-4">
+          <article className="flex flex-col items-center justify-center">
             <h2 class="text-[24px] leading-[52px] font-semibold mb-4 tracking-[-.09px] text-dark_blue">
               Frequently Asked Questions
             </h2>
-            <p className=" text-[15px] leading-[25px]  px-8  text-grey ">
+            <p className=" text-[15px] leading-[25px]   text-grey ">
               Here are some of our FAQs. If you have any other questions you’d
               like answered please feel free to email us.
             </p>
+
+            <div className="w-full">
+              <QuestionsCard title="What is Bookmark?" />
+              <QuestionsCard title="How can I request a new browser?" />
+              <QuestionsCard title="Is there a mobile app?" />
+              <QuestionsCard title=" What about other Chromium browsers?" />
+            </div>
           </article>
         </section>
-        Frequently Asked Questions Here are some of our FAQs. If you have any
-        other questions you’d like answered please feel free to email us.
         {/* <!-- Question 1 --> */}
-        What is Bookmark?
         {/* <!-- Answer 1 --> */}
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tincidunt
         justo eget ultricies fringilla. Phasellus blandit ipsum quis quam ornare
