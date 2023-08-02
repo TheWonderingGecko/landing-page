@@ -1,18 +1,35 @@
 import BrowserCard from './components/BrowserCard'
+import Logo from '/src/assets/images/footer-logo.svg'
 import Nav_Bar from './components/Nav_Bar'
 import QuestionsCard from './components/QuestionsCard'
 import Title_Slide from './components/Title_Slide'
 import Chrome from '/src/assets/images/logo-chrome.svg'
 import Firefox from '/src/assets/images/logo-firefox.svg'
 import Opera from '/src/assets/images/logo-opera.svg'
+import questions from '../src/assets/data/questions.jsx'
+import Button from './components/Button'
+import { useState } from 'react'
 
 function App() {
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState(false)
+  const handleClick = (e) => {
+    e.preventDefault()
+    if (!/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(email)) {
+      setError(true)
+      return // Stop execution if the email is not valid
+    }
+
+    setError(false)
+
+    console.log('The link was clicked.')
+  }
   return (
-    <div className="w-screen p-4 overflow-hidden text-center font-rubik ">
+    <div className="flex flex-col items-center justify-center w-screen p-4 overflow-hidden text-center font-rubik ">
       <Nav_Bar />
 
       <Title_Slide />
-      <main className="w-full h-full">
+      <main className="flex flex-col items-center justify-center w-full h-full gap-20">
         <section className="my-4">
           <article>
             <h1 class="text-[30px] leading-[40px] font-semibold mb-4 tracking-[-.09px] text-dark_blue">
@@ -24,14 +41,17 @@ function App() {
               for free.
             </p>
             <div className="flex items-center justify-center gap-3 px-2 text-[14px] font-medium  leading-[28px] tracking-[.25px] mt-4 ">
-              <button className="px-4 py-2 text-white rounded-md shadow-lg bg-blue">
-                {' '}
-                Get it on Chrome
-              </button>
-              <button className="px-4 py-2 text-dark_blue rounded-md bg-[#ebe8e8] font-medium shadow-lg">
-                {' '}
-                Get it on Firefox
-              </button>
+              <Button
+                text="Get it on Chrome"
+                background="bg-blue"
+                text_color="text-white"
+              />
+
+              <Button
+                text="Get it on Firefox"
+                background="bg-[#ebe8e8]"
+                text_color="text-dark_blue"
+              />
             </div>
           </article>
         </section>
@@ -76,16 +96,13 @@ function App() {
               interface gives you complete control over how you manage your
               favourite sites.
             </p>
-            <button className="px-4 py-2 text-white rounded-md shadow-lg bg-blue">
-              More Info
-            </button>
+            <Button
+              text="More Info"
+              background="bg-blue"
+              text_color="text-white"
+            />
           </article>
         </section>
-        {/* Intelligent search Our powerful search feature will help you find saved
-        sites in no time at all. No need to trawl through all of your bookmarks.
-        More Info Share your bookmarks Easily share your bookmarks and
-        collections with others. Create a shareable link that you can send at
-        the click of a button. More Info  */}
         <section className="my-4">
           <article>
             <h2 class="text-[24px] leading-[52px] font-semibold mb-4 tracking-[-.09px] text-dark_blue">
@@ -115,7 +132,7 @@ function App() {
             </div>
           </article>
         </section>
-        <section className="px-4 my-4">
+        <section className="flex flex-col gap-8 px-4 my-4">
           <article className="flex flex-col items-center justify-center">
             <h2 class="text-[24px] leading-[52px] font-semibold mb-4 tracking-[-.09px] text-dark_blue">
               Frequently Asked Questions
@@ -125,51 +142,84 @@ function App() {
               like answered please feel free to email us.
             </p>
 
-            <div className="w-full">
-              <QuestionsCard title="What is Bookmark?" />
-              <QuestionsCard title="How can I request a new browser?" />
-              <QuestionsCard title="Is there a mobile app?" />
-              <QuestionsCard title=" What about other Chromium browsers?" />
+            <div className="w-full ">
+              {questions.map((question) => (
+                <QuestionsCard
+                  key={question.id}
+                  title={question.question}
+                  content={question.answer}
+                />
+              ))}
             </div>
           </article>
+          <div>
+            <Button
+              text="More Info"
+              background="bg-blue"
+              text_color="text-white"
+            />
+          </div>
         </section>
-        {/* <!-- Question 1 --> */}
-        {/* <!-- Answer 1 --> */}
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tincidunt
-        justo eget ultricies fringilla. Phasellus blandit ipsum quis quam ornare
-        mattis.
-        {/* <!-- Question 2 --> */}
-        How can I request a new browser?
-        {/* <!-- Answer 2 --> */}
-        Vivamus luctus eros aliquet convallis ultricies. Mauris augue massa,
-        ultricies non ligula. Suspendisse imperdiet. Vivamus luctus eros aliquet
-        convallis ultricies. Mauris augue massa, ultricies non ligula.
-        Suspendisse imperdie tVivamus luctus eros aliquet convallis ultricies.
-        Mauris augue massa, ultricies non ligula. Suspendisse imperdiet.
-        {/* <!-- Question 3 --> */}
-        Is there a mobile app?
-        {/* <!-- Answer 3 --> */}
-        Sed consectetur quam id neque fermentum accumsan. Praesent luctus
-        vestibulum dolor, ut condimentum urna vulputate eget. Cras in ligula
-        quis est pharetra mattis sit amet pharetra purus. Sed sollicitudin ex et
-        ultricies bibendum.
-        {/* <!-- Question 4 --> */}
-        What about other Chromium browsers?
-        {/* <!-- Answer 4 --> */}
-        Integer condimentum ipsum id imperdiet finibus. Vivamus in placerat mi,
-        at euismod dui. Aliquam vitae neque eget nisl gravida pellentesque non
-        ut velit. More Info 35,000+ already joined Stay up-to-date with what
-        we’re doing Contact Us Features Pricing Contact
+
+        <section className="flex flex-col w-screen gap-8 p-8 bg-blue">
+          <article className="flex flex-col items-center justify-center">
+            <p className="uppercase leading-10 tracking-[4.62px]  text-white">
+              35,000+ already joined{' '}
+            </p>
+            <h2 class="text-[24px] leading-[52px] font-semibold mb-4 tracking-[-.09px] text-white">
+              Stay up-to-date with what we’re doing
+            </h2>
+            <form onSubmit={handleClick} className="flex flex-col w-full gap-8">
+              <div
+                className={
+                  'rounded-md' + (error ? ' border-2 border-red bg-red' : '')
+                }
+              >
+                <input
+                  value={email}
+                  name=""
+                  id=""
+                  className="w-full rounded-md h-[48px] p-2 focus:outline-none"
+                  placeholder="Enter your email address"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {error && (
+                  <p className="px-2 text-left text-white">
+                    Whoops, make sure it's an email
+                  </p>
+                )}
+              </div>
+              <Button
+                text="Contact Us"
+                background="bg-red"
+                text_color="text-white"
+              />
+            </form>
+          </article>
+        </section>
       </main>
-      <footer>
-        <p class="attribution">
-          Challenge by{' '}
-          <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
-            Frontend Mentor
+      <footer className="flex flex-col items-center justify-center w-screen h-full gap-20 bg-dark_blue">
+        <img src={Logo} alt="" className="text-white" />
+        <div className="flex items-center justify-center gap-4">
+          <a href="#" className="text-[15px] leading-[25px] text-grey">
+            Terms
           </a>
-          . Coded by <a href="#">Your Name Here</a>.
-        </p>
+          <a href="#" className="text-[15px] leading-[25px] text-grey">
+            Privacy
+          </a>
+          <a href="#" className="text-[15px] leading-[25px] text-grey">
+            Contact
+          </a>
+        </div>
       </footer>
+
+      <p class="attribution">
+        Challenge by{' '}
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
+          Frontend Mentor
+        </a>
+        . Coded by <a href="#">Your Name Here</a>.
+      </p>
     </div>
   )
 }
