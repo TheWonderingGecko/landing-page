@@ -8,7 +8,9 @@ import Firefox from '/src/assets/images/logo-firefox.svg'
 import Opera from '/src/assets/images/logo-opera.svg'
 import questions from '../src/assets/data/questions.jsx'
 import Button from './components/Button'
+import error_icon from '/src/assets/images/icon-error.svg'
 import { useState } from 'react'
+import Nav_links from './components/Nav_links'
 
 function App() {
   const [email, setEmail] = useState('')
@@ -172,9 +174,16 @@ function App() {
             <form onSubmit={handleClick} className="flex flex-col w-full gap-8">
               <div
                 className={
-                  'rounded-md' + (error ? ' border-2 border-red bg-red' : '')
+                  'rounded-md relative' +
+                  (error ? ' border-2 border-red bg-red' : '')
                 }
               >
+                {error && (
+                  <i class="absolute top-4 right-3">
+                    <img src={error_icon} alt="" />
+                  </i>
+                )}
+
                 <input
                   value={email}
                   name=""
@@ -183,6 +192,7 @@ function App() {
                   placeholder="Enter your email address"
                   onChange={(e) => setEmail(e.target.value)}
                 />
+
                 {error && (
                   <p className="px-2 text-left text-white">
                     Whoops, make sure it's an email
@@ -198,8 +208,9 @@ function App() {
           </article>
         </section>
       </main>
-      <footer className="flex flex-col items-center justify-center w-screen h-full gap-20 bg-dark_blue">
-        <img src={Logo} alt="" className="text-white" />
+      <footer className="flex flex-col items-center justify-center w-screen h-full gap-10 p-10 bg-dark_blue">
+        <img src={Logo} alt="" className="text-white " />
+        <Nav_links />
         <div className="flex items-center justify-center gap-4">
           <a href="#" className="text-[15px] leading-[25px] text-grey">
             Terms
